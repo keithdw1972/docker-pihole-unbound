@@ -7,7 +7,8 @@ volumes:
 services:
   pihole:
     container_name: pihole
-    image: cbcrowe/pihole-unbound:latest
+    #image: cbcrowe/pihole-unbound:latest
+    image: keithdw/pihole-unbound:latest
     hostname: ${HOSTNAME}
     domainname: ${DOMAIN_NAME}
     ports:
