@@ -23,8 +23,8 @@ services:
       - FTLCONF_LOCAL_IPV4=192.168.170.253
       - TZ=Europe/London
       - WEBPASSWORD=
-    #  - PIHOLE_DNS_=192.168.170.254;192.168.170.7
-      - PIHOLE_DNS_=192.168.170.1
+      - PIHOLE_DNS_=192.168.170.254;192.168.170.7
+    #  - PIHOLE_DNS_=192.168.170.1
       - PIHOLE_DOCKER_TAG=2022.11.2    
       - WEBTHEME=default-auto
       - REV_SERVER=fale
@@ -40,6 +40,9 @@ services:
       #- DHCP_LEASETIME=${DHCP_LEASETIME}
       - DNSSEC=true
       - DNSMASQ_LISTENING=local
+    volumes:
+      - etc_pihole-unbound:/etc/pihole:rw
+      - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.253
