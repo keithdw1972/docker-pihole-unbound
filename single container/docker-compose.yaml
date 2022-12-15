@@ -29,10 +29,10 @@ services:
       - 22:22/tcp # Uncomment to enable SSH 
       - 67:67/tcp
     environment:
-      - FTLCONF_LOCAL_IPV4=192.168.170.254
-      - TZ=Europ/London
+      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
+      - TZ=${TZ:-UTC}
       #- WEBPASSWORD=${WEBPASSWORD}
-      #- WEBTHEME=${WEBTHEME:-default-light}
+      - WEBTHEME=${WEBTHEME:-default-light}
       #- REV_SERVER=${REV_SERVER:-false}
       #- REV_SERVER_TARGET=${REV_SERVER_TARGET}
       #- REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN}
@@ -45,9 +45,9 @@ services:
       #- DHCP_END=${DHCP_END}
       #- DHCP_ROUTER=${DHCP_ROUTER}
       #- DHCP_LEASETIME=${DHCP_LEASETIME}
-      #- PIHOLE_DOMAIN=${PIHOLE_DOMAIN}
-      #- DNSSEC=${DNSSEC}
-      #- DNSMASQ_LISTENING=${DNSMASQ_LISTENING}
+      - PIHOLE_DOMAIN=${PIHOLE_DOMAIN}
+      - DNSSEC=${DNSSEC}
+      - DNSMASQ_LISTENING=${DNSMASQ_LISTENING}
 
     volumes:
       - etc_pihole-unbound:/etc/pihole:rw
@@ -63,4 +63,4 @@ networks:
       config:
         - subnet: 192.168.170.0/24            # <-- Update
           gateway: 192.168.170.1              # <-- Update
-          ip_range: 192.168.170.0/24        # <-- Update
+          #ip_range: 192.168.170.0/24        # <-- Update
