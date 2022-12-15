@@ -81,3 +81,12 @@ networks:
         - subnet: 192.168.170.0/24
           gateway: 192.168.170.1
           ip_range: 192.168.170.253/30 # 192.168.170.253 and 192.168.170.254
+  pihole-bridge:
+    driver: bridge
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.1
+          ip_range: 192.168.10.2/32 # 192.168.170.253 and 192.168.170.254
