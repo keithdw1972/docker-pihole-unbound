@@ -1,46 +1,52 @@
 version: '3.0'
 
-volumes:
-  etc_pihole-unbound:
-  etc_pihole_dnsmasq-unbound:
-
 services:
   pihole:
-    container_name: pihole
-    #image: cbcrowe/pihole-unbound:latest
-    image: keithdw/pihole-unbound:latest
-    hostname: ${HOSTNAME}
-    domainname: ${DOMAIN_NAME}
+    container_name: synology_pihole
+    image: pihole/pihole:latest
+    hostname: syn_pihole
+    mac_address: d0:ca:ab:cd:ef:01
+    cap_add: # Uncomment if you want to use Pi-Hole for DHCP
+      - NET_ADMIN
     ports:
       - 443:443/tcp
       - 53:53/tcp
       - 53:53/udp
-      - ${PIHOLE_WEBPORT:-80}:80/tcp #Allows use of different port to access pihole web interface when other docker containers use port 80
-      - 5353:5353/tcp # Uncomment to enable unbound access on local server
-      - 22:22/tcp # Uncomment to enable SSH 
-      - 67:67/tcp
+      - 67:67/udp
+      - 80:80/tcp
+      - 22:22/tcp
     environment:
-      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
-      - TZ=${TZ:-UTC}
-      - WEBPASSWORD=${WEBPASSWORD}
-      - WEBTHEME=${WEBTHEME:-default-light}
-      - REV_SERVER=${REV_SERVER:-false}
-      - REV_SERVER_TARGET=${REV_SERVER_TARGET}
-      - REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN}
-      - REV_SERVER_CIDR=${REV_SERVER_CIDR}
-      - PIHOLE_DNS_=${PIHOLE_DNS_}
-      - DNS_BOGUS_PRIV=${DNS_BOGUS_PRIV}
-      - DNS_FQDN_REQUIRED=${DNS_FQDN_REQUIRED}
-      - DHCP_ACTIVE=${DHCP_ACTIVE}
-      - DHCP_START=${DHCP_START}
-      - DHCP_END=${DHCP_END}
-      - DHCP_ROUTER=${DHCP_ROUTER}
-      - DHCP_LEASETIME=${DHCP_LEASETIME}
-      - PIHOLE_DOMAIN=${PIHOLE_DOMAIN}
-      - DNSSEC=${DNSSEC}
-      - DNSMASQ_LISTENING=${DNSMASQ_LISTENING}
+      - FTLCONF_LOCAL_IPV4=192.168.170.253
+      - TZ=Europe/London
+      - WEBPASSWORD=
+      - PIHOLE_DNS_=192.168.170.254;192.168.170.7
+      - PIHOLE_DOCKER_TAG=2022.11.2
+    networks:
+      pihole-unbound:
+        ipv4_address: 192.168.170.253
+    restart: always
+  
+  unbound: 
+    container_name: synology_unbound
+    image: mvance/unbound:latest
+    hostname: syn-unbound
+    mac_address: d0:ca:ab:cd:ef:02
 
-    volumes:
-      - etc_pihole-unbound:/etc/pihole:rw
-      - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
-    restart: unless-stopped
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+    networks:
+      pihole-unbound:
+        ipv4_address: 192.168.170.254
+    restart: always
+
+networks:
+  pihole-unbound:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.170.0/24
+          gateway: 192.168.170.1
+          ip_range: 192.168.1.253/30 # 192.168.170.253 and 192.168.170.254

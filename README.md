@@ -1,5 +1,5 @@
-# docker-pihole-unbound
+# Pi-Hole + Unbound - 1 Container
 
-### Uses Docker to run [Pi-Hole](https://pi-hole.net) with an upstream [Unbound](https://nlnetlabs.nl/projects/unbound/about/) resolver.
+## Description
 
-This repo references both chriscrowe's (https://github.com/chriscrowe/docker-pihole-unbound) and MathewVance's https://github.com/MatthewVance/unbound-docker existing repos, but is being modified to fit my needs. Thanks to both for their excellent work.
+This Docker deployment runs both Pi-Hole and Unbound in a single container.

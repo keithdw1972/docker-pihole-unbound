@@ -16,7 +16,7 @@ services:
       - NET_ADMIN
     networks:
       pihole_network:
-       ipv4_address: 192.168.170.254
+       ipv4_address: ${FTLCONF_LOCAL_IPV4}
     #dns:
     #  - 127.0.0.1
     #  - 192.168.170.7 
@@ -31,21 +31,20 @@ services:
     environment:
       - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
       - TZ=${TZ:-UTC}
-      #- WEBPASSWORD=${WEBPASSWORD}
+      - WEBPASSWORD=${WEBPASSWORD}
       - WEBTHEME=${WEBTHEME:-default-light}
-      #- REV_SERVER=${REV_SERVER:-false}
+      - REV_SERVER=${REV_SERVER:-false}
       #- REV_SERVER_TARGET=${REV_SERVER_TARGET}
       #- REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN}
       #- REV_SERVER_CIDR=${REV_SERVER_CIDR}
-      - PIHOLE_DNS_=${PIHOLE_DNS_}
-      #- DNS_BOGUS_PRIV=${DNS_BOGUS_PRIV}
-      #- DNS_FQDN_REQUIRED=${DNS_FQDN_REQUIRED}
+      - PIHOLE_DNS_=127.0.0.1#5335
+      - DNS_BOGUS_PRIV=${DNS_BOGUS_PRIV}
+      - DNS_FQDN_REQUIRED=${DNS_FQDN_REQUIRED}
       #- DHCP_ACTIVE=${DHCP_ACTIVE}
       #- DHCP_START=${DHCP_START}
       #- DHCP_END=${DHCP_END}
       #- DHCP_ROUTER=${DHCP_ROUTER}
       #- DHCP_LEASETIME=${DHCP_LEASETIME}
-      - PIHOLE_DOMAIN=${PIHOLE_DOMAIN}
       - DNSSEC=${DNSSEC}
       - DNSMASQ_LISTENING=${DNSMASQ_LISTENING}
 
@@ -63,4 +62,4 @@ networks:
       config:
         - subnet: 192.168.170.0/24            # <-- Update
           gateway: 192.168.170.1              # <-- Update
-          #ip_range: 192.168.170.0/24        # <-- Update
+          ip_range: 192.168.170.253/30        # <-- Update
