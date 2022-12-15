@@ -1,0 +1,3 @@
+FROM mvance/unbound:latest
+
+COPY unbound-pihole.conf /etc/unbound.unbound.conf.d/pi-hole.conf

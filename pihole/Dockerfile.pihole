@@ -1,0 +1,10 @@
+ARG PIHOLE_VERSION
+FROM pihole/pihole:${PIHOLE_VERSION:-latest}
+
+COPY lighttpd-external.conf /etc/lighttpd/external.conf 
+COPY 99-edns.conf /etc/dnsmasq.d/99-edns.conf
+COPY 50-dhcp-extra.conf /etc/dnsmasq.d/50-dhcp-extra.conf
+COPY 04-pihole-static-dhcp.conf /etc/dnsmasq.d/04-pihole-static-dhcp.conf
+
+
+ENTRYPOINT ./s6-init

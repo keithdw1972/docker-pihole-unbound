@@ -8,7 +8,10 @@ volumes:
 services:
   pihole:
     container_name: synology_pihole
-    image: pihole/pihole:latest
+    image: keithdw/pihole:latest
+    build:
+      context: ./pihole
+      dockerfile: Dockerfile.pihole
     hostname: syn_pihole
     mac_address: d0:ca:ab:cd:ef:01
     cap_add: # Uncomment if you want to use Pi-Hole for DHCP
@@ -51,7 +54,10 @@ services:
   
   unbound: 
     container_name: synology_unbound
-    image: mvance/unbound:latest
+    image: keithdw/unbound:latest
+    build: 
+      context: ./unbound
+      dockerfile: Dockerfile.unbound
     hostname: syn-unbound
     mac_address: d0:ca:ab:cd:ef:02
     volumes:
