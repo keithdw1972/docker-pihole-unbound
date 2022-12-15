@@ -1,5 +1,6 @@
 ARG PIHOLE_VERSION
 FROM pihole/pihole:${PIHOLE_VERSION:-latest}
+RUN apt update && apt full-upgrade -y
 
 COPY lighttpd-external.conf /etc/lighttpd/external.conf 
 COPY 99-edns.conf /etc/dnsmasq.d/99-edns.conf
