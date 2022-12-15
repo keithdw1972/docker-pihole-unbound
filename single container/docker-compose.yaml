@@ -7,10 +7,19 @@ volumes:
 services:
   pihole:
     container_name: pihole
-    #image: cbcrowe/pihole-unbound:latest
-    image: keithdw/pihole-unbound:latest
-    hostname: ${HOSTNAME}
-    domainname: ${DOMAIN_NAME}
+    image: cbcrowe/pihole-unbound:latest
+    #image: keithdw/pihole-unbound:latest
+    hostname: pihole-nas
+    domainname: toa.lan
+    mac_address: d0:ca:ab:cd:ef:01
+    cap_add:
+      - NET_ADMIN
+    networks:
+      pihole_network:
+       ipv4_address: 192.168.170.254
+    dns:
+      - 127.0.0.1
+      - 192.168.170.7 
     ports:
       - 443:443/tcp
       - 53:53/tcp
@@ -20,27 +29,38 @@ services:
       - 22:22/tcp # Uncomment to enable SSH 
       - 67:67/tcp
     environment:
-      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
-      - TZ=${TZ:-UTC}
-      - WEBPASSWORD=${WEBPASSWORD}
-      - WEBTHEME=${WEBTHEME:-default-light}
-      - REV_SERVER=${REV_SERVER:-false}
-      - REV_SERVER_TARGET=${REV_SERVER_TARGET}
-      - REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN}
-      - REV_SERVER_CIDR=${REV_SERVER_CIDR}
-      - PIHOLE_DNS_=${PIHOLE_DNS_}
-      - DNS_BOGUS_PRIV=${DNS_BOGUS_PRIV}
-      - DNS_FQDN_REQUIRED=${DNS_FQDN_REQUIRED}
-      - DHCP_ACTIVE=${DHCP_ACTIVE}
-      - DHCP_START=${DHCP_START}
-      - DHCP_END=${DHCP_END}
-      - DHCP_ROUTER=${DHCP_ROUTER}
-      - DHCP_LEASETIME=${DHCP_LEASETIME}
-      - PIHOLE_DOMAIN=${PIHOLE_DOMAIN}
-      - DNSSEC=${DNSSEC}
-      - DNSMASQ_LISTENING=${DNSMASQ_LISTENING}
+      - FTLCONF_LOCAL_IPV4=192.168.170.254
+      - TZ=Europ/London
+      #- WEBPASSWORD=${WEBPASSWORD}
+      #- WEBTHEME=${WEBTHEME:-default-light}
+      #- REV_SERVER=${REV_SERVER:-false}
+      #- REV_SERVER_TARGET=${REV_SERVER_TARGET}
+      #- REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN}
+      #- REV_SERVER_CIDR=${REV_SERVER_CIDR}
+      #- PIHOLE_DNS_=${PIHOLE_DNS_}
+      #- DNS_BOGUS_PRIV=${DNS_BOGUS_PRIV}
+      #- DNS_FQDN_REQUIRED=${DNS_FQDN_REQUIRED}
+      #- DHCP_ACTIVE=${DHCP_ACTIVE}
+      #- DHCP_START=${DHCP_START}
+      #- DHCP_END=${DHCP_END}
+      #- DHCP_ROUTER=${DHCP_ROUTER}
+      #- DHCP_LEASETIME=${DHCP_LEASETIME}
+      #- PIHOLE_DOMAIN=${PIHOLE_DOMAIN}
+      #- DNSSEC=${DNSSEC}
+      #- DNSMASQ_LISTENING=${DNSMASQ_LISTENING}
 
     volumes:
       - etc_pihole-unbound:/etc/pihole:rw
       - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
     restart: unless-stopped
+
+networks:
+  pihole_network:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.170.0/24            # <-- Update
+          gateway: 192.168.170.1              # <-- Update
+          ip_range: 192.168.170.0/24        # <-- Update
