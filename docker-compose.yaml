@@ -50,6 +50,7 @@ services:
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.253
+      pihole-bridge:
     restart: always
   
   unbound: 
@@ -62,14 +63,12 @@ services:
     mac_address: d0:ca:ab:cd:ef:02
     volumes:
       - etc_unbound.conf.d:/etc/unbound.conf.d:rw
-
     ports:
       - 53/tcp
       - 53/udp
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.254
-      pihole-bridge:
     restart: always
 
 networks:
@@ -90,4 +89,4 @@ networks:
       config:
         - subnet: 192.168.10.0/24
           gateway: 192.168.10.1
-          ip_range: 192.168.10.2/32 # 192.168.170.253 and 192.168.170.254
+          ip_range: 192.168.10.251/32 # 192.168.170.253 and 192.168.170.254
