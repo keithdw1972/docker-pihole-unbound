@@ -27,7 +27,7 @@ services:
       - FTLCONF_LOCAL_IPV4=192.168.170.253
       - TZ=Europe/London
       - WEBPASSWORD=
-      - PIHOLE_DNS_=192.168.170.254,192.168.170.7
+      - PIHOLE_DNS_=192.168.170.254
     #  - PIHOLE_DNS_=192.168.170.1
       - PIHOLE_DOCKER_TAG=2022.11.2    
       - WEBTHEME=default-auto
@@ -37,10 +37,10 @@ services:
       #- REV_SERVER_CIDR=${REV_SERVER_CIDR}
       - DNS_BOGUS_PRIV=true
       - DNS_FQDN_REQUIRED=true
-      - DHCP_ACTIVE=true
+      - DHCP_ACTIVE="true"
       - DHCP_START=192.168.170.150
       - DHCP_END=192.168.170.199
-      - DHCP_ROUTER=192.1668.170.1
+      - DHCP_ROUTER=192.168.170.1
       - DHCP_LEASETIME=56
       - PIIHOLE_DOMAIN=toa.lan
       - DHCP_rapid_commit=true
