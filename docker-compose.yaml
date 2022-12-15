@@ -27,7 +27,7 @@ services:
       - FTLCONF_LOCAL_IPV4=192.168.170.253
       - TZ=Europe/London
       - WEBPASSWORD=
-      - PIHOLE_DNS_=192.168.170.254;192.168.170.7
+      - PIHOLE_DNS_=192.168.170.254
     #  - PIHOLE_DNS_=192.168.170.1
       - PIHOLE_DOCKER_TAG=2022.11.2    
       - WEBTHEME=default-auto
