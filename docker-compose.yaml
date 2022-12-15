@@ -2,8 +2,8 @@ version: '3.0'
 
 volumes:
   etc_pihole:
-  etc_pihole_dnsmasq:
-  etc_unbound:
+  etc_dnsmasq.d:
+  etc_unbound.conf.d:
 
 services:
   pihole:
@@ -43,7 +43,7 @@ services:
       - DNSMASQ_LISTENING=local
     volumes:
       - etc_pihole:/etc/pihole:rw
-      - etc_pihole_dnsmasq:/etc/dnsmasq.d:rw
+      - etc_dnsmasq.d:/etc/dnsmasq.d:rw
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.253
@@ -55,7 +55,7 @@ services:
     hostname: syn-unbound
     mac_address: d0:ca:ab:cd:ef:02
     volumes:
-      - etc_unbound:
+      - etc_unbound.conf.d:/etc/unbound.conf.d:rw
 
     ports:
       - 53/tcp
