@@ -20,29 +20,26 @@ services:
       - 80/tcp
       - 22/tcp
     environment:
-      #- FTLCONF_LOCAL_IPV4=192.168.170.253
-      #- TZ=Europe/London
+      - FTLCONF_LOCAL_IPV4=192.168.170.253
+      - TZ=Europe/London
       - WEBPASSWORD=
-      - PIHOLE_DNS_=192.168.170.254;192.168.170.7
-      - PIHOLE_DOCKER_TAG=2022.11.2
-      - FTLCONF_LOCAL_IPV4=${FTLCONF_LOCAL_IPV4}
-      - TZ=${TZ:-UTC}
-      #- WEBPASSWORD=${WEBPASSWORD}
-      - WEBTHEME=${WEBTHEME:-default-light}
-      - REV_SERVER=${REV_SERVER:-false}
+    #  - PIHOLE_DNS_=192.168.170.254;192.168.170.7
+      - PIHOLE_DNS_=192.168.170.1
+      - PIHOLE_DOCKER_TAG=2022.11.2    
+      - WEBTHEME=default-auto
+      - REV_SERVER=fale
       #- REV_SERVER_TARGET=${REV_SERVER_TARGET}
       #- REV_SERVER_DOMAIN=${REV_SERVER_DOMAIN}
       #- REV_SERVER_CIDR=${REV_SERVER_CIDR}
-    #  - PIHOLE_DNS_=127.0.0.1#5335
-      - DNS_BOGUS_PRIV=${DNS_BOGUS_PRIV}
-      - DNS_FQDN_REQUIRED=${DNS_FQDN_REQUIRED}
+      - DNS_BOGUS_PRIV=true
+      - DNS_FQDN_REQUIRED=true
       #- DHCP_ACTIVE=${DHCP_ACTIVE}
       #- DHCP_START=${DHCP_START}
       #- DHCP_END=${DHCP_END}
       #- DHCP_ROUTER=${DHCP_ROUTER}
       #- DHCP_LEASETIME=${DHCP_LEASETIME}
-      - DNSSEC=${DNSSEC}
-      - DNSMASQ_LISTENING=${DNSMASQ_LISTENING}
+      - DNSSEC=true
+      - DNSMASQ_LISTENING=local
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.253
