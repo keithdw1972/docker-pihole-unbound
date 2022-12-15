@@ -9,12 +9,12 @@ services:
     cap_add: # Uncomment if you want to use Pi-Hole for DHCP
       - NET_ADMIN
     ports:
-      - 443:443/tcp
-      - 53:53/tcp
-      - 53:53/udp
-      - 67:67/udp
-      - 80:80/tcp
-      - 22:22/tcp
+      - 443/tcp
+      - 53/tcp
+      - 53/udp
+      - 67/udp
+      - 80/tcp
+      - 22/tcp
     environment:
       - FTLCONF_LOCAL_IPV4=192.168.170.253
       - TZ=Europe/London
@@ -33,8 +33,8 @@ services:
     mac_address: d0:ca:ab:cd:ef:02
 
     ports:
-      - 53:53/tcp
-      - 53:53/udp
+      - 53/tcp
+      - 53/udp
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.254
@@ -49,4 +49,4 @@ networks:
       config:
         - subnet: 192.168.170.0/24
           gateway: 192.168.170.1
-          ip_range: 192.168.1.253/30 # 192.168.170.253 and 192.168.170.254
+          ip_range: 192.168.170.253/30 # 192.168.170.253 and 192.168.170.254
