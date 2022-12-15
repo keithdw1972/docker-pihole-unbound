@@ -1,8 +1,9 @@
 version: '3.0'
 
 volumes:
-  etc_pihole-unbound:
-  etc_pihole_dnsmasq-unbound:
+  etc_pihole:
+  etc_pihole_dnsmasq:
+  etc_unbound:
 
 services:
   pihole:
@@ -41,8 +42,8 @@ services:
       - DNSSEC=true
       - DNSMASQ_LISTENING=local
     volumes:
-      - etc_pihole-unbound:/etc/pihole:rw
-      - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
+      - etc_pihole:/etc/pihole:rw
+      - etc_pihole_dnsmasq:/etc/dnsmasq.d:rw
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.253
@@ -53,6 +54,8 @@ services:
     image: mvance/unbound:latest
     hostname: syn-unbound
     mac_address: d0:ca:ab:cd:ef:02
+    volumes:
+      - etc_unbound:
 
     ports:
       - 53/tcp
