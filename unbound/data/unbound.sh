@@ -70,8 +70,8 @@ server:
     edns-buffer-size: 1232
     # Listen to for queries from clients and answer from this network interface
     # and port.
-    interface: 127.0.0.1
-    port: 5335
+    interface: 0.0.0.0
+    port: 53
     do-ip4: yes
     do-ip6: no
     do-udp: yes
