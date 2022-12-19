@@ -2,3 +2,6 @@ FROM mvance/unbound:latest
 RUN apt update && apt full-upgrade -y && apt install dnsutils -y
 
 COPY data/ /
+
+RUN chmod +x /unbound.sh
+CMD ["/unbound.sh"]
