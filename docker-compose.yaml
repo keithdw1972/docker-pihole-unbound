@@ -52,7 +52,7 @@ services:
     networks:
       pihole-unbound:
         ipv4_address: 192.168.170.253
-      pihole-bridge:
+      pihole-xbridge:
     restart: always
   
   unbound: 

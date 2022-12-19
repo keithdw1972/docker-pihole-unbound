@@ -1,6 +1,6 @@
 ARG PIHOLE_VERSION
 FROM pihole/pihole:${PIHOLE_VERSION:-latest}
-RUN apt update && apt full-upgrade -y && install unbound -y
+RUN apt update && apt full-upgrade -y && apt install unbound -y
 
 COPY lighttpd-external.conf /etc/lighttpd/external.conf 
 COPY 99-edns.conf /etc/dnsmasq.d/99-edns.conf

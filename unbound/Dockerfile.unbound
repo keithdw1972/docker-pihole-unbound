@@ -1,4 +1,4 @@
 FROM mvance/unbound:latest
-RUN apt update && apt && apt install dnsutils && apt full-upgrade -y
+RUN apt update && apt full-upgrade -y && apt install dnsutils -y
 
 COPY unbound-pihole.conf /etc/unbound/unbound.conf.d/pi-hole.conf
