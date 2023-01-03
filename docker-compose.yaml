@@ -28,7 +28,7 @@ services:
       - TZ=Europe/London
       - WEBPASSWORD=
       - PIHOLE_DNS_=192.168.170.254;192.168.170.7
-      - PIHOLE_DOCKER_TAG=2022.12    
+      - PIHOLE_DOCKER_TAG=2022.12.1
       - WEBTHEME=default-auto
       - REV_SERVER=false
       #- REV_SERVER_TARGET=${REV_SERVER_TARGET}
@@ -41,7 +41,7 @@ services:
       - DHCP_END=192.168.170.250
       - DHCP_ROUTER=192.168.170.1
       - DHCP_LEASETIME=48
-      - PIIHOLE_DOMAIN=toa.lan
+      - PIHOLE_DOMAIN=toa.lan
       - DHCP_rapid_commit=true
       - DNSSEC=true
       - DNSMASQ_LISTENING=local
